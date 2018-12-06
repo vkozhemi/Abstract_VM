@@ -1,9 +1,9 @@
 NAME = avm
 
 CC = g++
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror 
 
-SRCS = main.cpp Parsing.cpp Factory.cpp
+SRCS = main.cpp Parsing.cpp Factory.cpp Operand.cpp
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
 
 OBJ_DIR = ./objects/
@@ -12,7 +12,7 @@ SRC_DIR = ./srcs/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(FLAGS) -std=c++17 $(OBJ) -o $(NAME) -v 
 	@tput setaf 2; echo made
 
 $(OBJ): | $(OBJ_DIR)

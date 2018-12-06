@@ -2,9 +2,9 @@
 #include <string>
 #include <fstream>
 #include "../inc/Parsing.hpp"
-#include "../inc/IOperand.hpp"
-#include "../inc/Operand.hpp"
-#include "../inc/Factory.hpp"
+// #include "../inc/IOperand.hpp"
+// #include "../inc/Operand.hpp"
+// #include "../inc/Factory.hpp"
 
 void	read_from_console(void)
 {

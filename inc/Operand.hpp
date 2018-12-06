@@ -1,39 +1,66 @@
 #ifndef OPERAND_HPP
 # define OPERAND_HPP
 
+# include "IOperand.hpp"
 # include <iostream>
 # include <exception>
 # include <string>
 # include <limits>
 # include "Factory.hpp"
-# include "IOperand.hpp"
+
 
 template<class T> class Operand : public IOperand {
 
 protected:
 	std::string _value;
-
 public:
 	Operand(void);
 	Operand(T value);
 	Operand(std::string str);
-	Operand(Operand const & obj);
-	Operand & operator=(Operand const *rhs);
+	Operand(Operand const & src);
 	~Operand(void);
+	Operand & operator=(Operand const & rhs);
+	int 			 getPrecision(void) const;
+	eOperandType 	 getType(void) const;
+	IOperand const * operator+(IOperand const & rhs) const;
+	IOperand const * operator-(IOperand const & rhs) const;
+	IOperand const * operator*(IOperand const & rhs) const;
+	IOperand const * operator/(IOperand const & rhs) const;
+	IOperand const * operator%(IOperand const & rhs) const;
+	std::string const & toString(void) const;
 
-	int 				getPrecision( void ) const = 0;  // Precision of the type of the instance
-	eOperandType 		getType( void ) const = 0; // Type of the instance
+	class DivideByZero : public std::exception
+	{
+	public:
+		DivideByZero(void){};
+		virtual ~DivideByZero() throw(){};
+		char const * what(void) const throw()
+		{
+			return "Impossible divide by zero.";
+		}
+	};
 
-	IOperand const * 	operator+( IOperand const & rhs ) const = 0; // Sum
-	IOperand const * 	operator-( IOperand const & rhs ) const = 0; // Difference 
-	IOperand const * 	operator*( IOperand const & rhs ) const = 0; // Product
-	IOperand const * 	operator/( IOperand const & rhs ) const = 0; // Quotient
-	IOperand const * 	operator%( IOperand const & rhs ) const = 0; // Modulo
+	class UnderflowException : public std::exception
+	{
+	public:
+		UnderflowException(void){};
+		virtual ~UnderflowException() throw(){};
+		char const * what(void) const throw()
+		{
+			return "Underflow Exception.";
+		}
+	};
 
-	std::string const & toString( void ) const = 0; // String representation of the instance
-
-	~IOperand( void ) {}
-
+	class OverflowException : public std::exception
+	{
+	public:
+		OverflowException(void){};
+		virtual ~OverflowException() throw(){};
+		char const * what(void) const throw()
+		{
+			return "Overflow Exception.";
+		}
+	};
 };
 
 #endif

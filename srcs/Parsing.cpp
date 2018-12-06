@@ -1,7 +1,7 @@
 #include "../inc/Parsing.hpp"
-#include "string.h"
 #include "../inc/Factory.hpp"
-#include "../inc/IOperand.hpp"
+// #include "../inc/IOperand.hpp"
+// #include "../inc/Operand.hpp"
 
 
 Parsing::Parsing() { }
@@ -33,7 +33,7 @@ void	validation_size(std::vector<std::string> stack)
 				if (int8 < -128 || int8 > 127)
 				{
 					std::cout << int8 << " out of range int8" << std::endl;
-					throw (Factory::OutOfRange());
+					//throw (OperandFactory::OutOfRange());
 				}
 				else
 					std::cout  << "int8 = " << int8 << std::endl;
