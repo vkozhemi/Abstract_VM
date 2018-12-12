@@ -4,8 +4,8 @@
 # include <iostream>
 # include <exception>
 # include <string>
-// # include "IOperand.hpp"
-# include "Operand.hpp"
+# include "IOperand.hpp"
+// # include "Operand.hpp"
 
 class Factory {
 

@@ -6,7 +6,7 @@
 // #include "../inc/Operand.hpp"
 // #include "../inc/Factory.hpp"
 
-void	read_from_console(void)
+void	read_from_std_in(void)
 {
 	std::string					buffer;
 	std::vector<std::string>	array;
@@ -14,8 +14,7 @@ void	read_from_console(void)
 	while (std::getline(std::cin, buffer) && buffer.compare(";;") != 0) // 
 		array.push_back(buffer);
 
-	Parsing p;
-	p.pars(array);
+	Parsing p(array);
 }
 
 void	read_from_file(std::string filename)
@@ -32,16 +31,26 @@ void	read_from_file(std::string filename)
 	while (std::getline(readFile, buffer))
 		array.push_back(buffer);
 
-	Parsing p;
-	p.pars(array);
+	Parsing p(array);
 }
 
 int		main(int argc, char **argv)
 {
-	if (argc == 1)
-		read_from_console();
-	else if (argc == 2)
-		read_from_file(argv[1]);
+	// Lexer *lexer = new Lexer();
+	// Parser *parser = new Parser();
+
+	if (argc == 1 || argc == 2) {
+		try {
+			if (argc == 1)
+				read_from_std_in();
+			else
+				read_from_file(argv[1]);
+		}
+		catch (std::exception &e) {
+			std::cout << e.what() << std::endl;
+		}
+	}
 	else
-		std::cout << "Usage: ./avm file || ./avm " << std::endl;
+		std::cout << "Usage: ./avm [file]" << std::endl;
+	return (0);
 }

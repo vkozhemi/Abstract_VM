@@ -1,21 +1,16 @@
-push int32(42) ; dfgg  345      		
-push int32(33.sdff) ;;		      
-add	      ;;
-push int8(1312) 			 
-sub     
-assert double(42)
-add          ; dssd
-push int16(42)
-push int16(4436435)
-push int32(-2147483648)
-push int32(-21474836486)
-add     		
-push float(44.55)
-mul		
-push double(42.42)
-push int32(42)
+   push   int8(42)   ; dsnvsdiufb fs df		 . 
+ 	assert   int8(42)   	
+push int16(52)    
+assert int16(52)
+push int32(62)
+assert int32(62)
+push float(42.2)
+assert float(42.2)
+push double(52.52)
+assert double(52.52)
+add
+mul
 dump
 pop
-assert double(42.42)
 exit
 ;;

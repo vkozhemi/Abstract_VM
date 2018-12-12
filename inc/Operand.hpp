@@ -8,15 +8,17 @@
 # include <limits>
 # include "Factory.hpp"
 
+#define MAX(a, b) ((a) > (b)) ? (a) : (b);
 
 template<class T> class Operand : public IOperand {
-
+private:
+	Operand(void);
 protected:
 	std::string _value;
+	eOperandType _type;
 public:
-	Operand(void);
 	Operand(T value);
-	Operand(std::string str);
+	Operand(eOperandType type, std::string str);
 	Operand(Operand const & src);
 	~Operand(void);
 	Operand & operator=(Operand const & rhs);

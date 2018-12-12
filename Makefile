@@ -1,7 +1,7 @@
 NAME = avm
 
-CC = g++
-FLAGS = -Wall -Wextra -Werror 
+CC = clang++
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 SRCS = main.cpp Parsing.cpp Factory.cpp Operand.cpp
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
@@ -12,7 +12,7 @@ SRC_DIR = ./srcs/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(FLAGS) -std=c++17 $(OBJ) -o $(NAME) -v 
+	@$(CC) $(FLAGS) -std=c++17 $(OBJ) -o $(NAME)
 	@tput setaf 2; echo made
 
 $(OBJ): | $(OBJ_DIR)

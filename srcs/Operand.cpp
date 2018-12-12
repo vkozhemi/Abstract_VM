@@ -1,9 +1,9 @@
 #include "../inc/Operand.hpp"
 
-template<class T> Operand<T>::Operand()
-{
-	this->_value = std::to_string(static_cast<T>(0));
-}
+// template<class T> Operand<T>::Operand()
+// {
+// 	this->_value = std::to_string(static_cast<T>(0));
+// }
 
 template<class T> Operand<T>::Operand(Operand<T> const & src)
 {
@@ -14,7 +14,8 @@ template<class T> Operand<T>::~Operand(){}
 
 template<class T> Operand<T> & Operand<T>::operator=(Operand<T> const & rhs)
 {
-	this->_value = rhs._value; return *this;
+	this->_value = rhs._value; 
+	return *this;
 }
 
 template<class T> Operand<T>::Operand(T value)
@@ -22,9 +23,11 @@ template<class T> Operand<T>::Operand(T value)
 	this->_value = std::to_string(value);
 }
 
-template<class T> Operand<T>::Operand(std::string str)
+template<class T> Operand<T>::Operand(eOperandType type, std::string str) //: Operand::toString(type), _value(str)
 {
-	this->_value = std::to_string(static_cast<T>(std::stod(str)));
+	this->_type = type;
+	this->_value = str;
+	// this->_value = std::to_string(static_cast<T>(std::stod(str)));
 }
 
 template<class T> int addOverflow(T x, T y)
@@ -40,18 +43,29 @@ template<class T> int addOverflow(T x, T y)
 
 template<class T> IOperand const * Operand<T>::operator+(IOperand const & rhs) const
 {
-	if (this->getPrecision() < rhs.getPrecision())
-		return (rhs + *this);
-	T lval = static_cast<T>(std::stod(this->_value));
-	T rval = static_cast<T>(std::stod(rhs.toString()));
-	if (addOverflow<T>(lval, rval) == 1)
-		throw (Operand::UnderflowException());
-	else if (addOverflow<T>(lval, rval) == 2)
-		throw (Operand::OverflowException());
 	Factory *factory = new Factory();
-	IOperand const *res = factory->createOperand(this->getType(), std::to_string(static_cast<T>(std::stod(this->_value)) + rval));
-	delete factory;
-	return res;
+	eOperandType sum_type = MAX(this->getType(), rhs.getType());
+	if (sum_type <= 3)
+	{
+		int sum = std::stoi(this->toString()) + std::stoi(rhs.toString());
+		return factory->createOperand(sum_type, std::to_string(sum));
+	} else {
+		double sum = std::stod(this->toString()) + std::stod(rhs.toString());
+		return factory->createOperand(sum_type, std::to_string(sum));
+		//double
+	}
+	// if (this->getPrecision() < rhs.getPrecision())
+	// 	return (rhs + *this);
+	// T lval = static_cast<T>(std::stod(this->_value));
+	// T rval = static_cast<T>(std::stod(rhs.toString()));
+	// if (addOverflow<T>(lval, rval) == 1)
+	// 	throw (Operand::UnderflowException());
+	// else if (addOverflow<T>(lval, rval) == 2)
+	// 	throw (Operand::OverflowException());
+	// Factory *factory = new Factory();
+	// IOperand const *res = factory->createOperand(this->getType(), std::to_string(static_cast<T>(std::stod(this->_value)) + rval));
+	// delete factory;
+	// return res;
 }
 
 template<class T> IOperand const * Operand<T>::operator-(IOperand const & rhs) const
