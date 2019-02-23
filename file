@@ -1,16 +1,39 @@
-   push   int8(42)   ; dsnvsdiufb fs df		 . 
- 	assert   int8(42)   	
-push int16(52)    
-assert int16(52)
-push int32(62)
-assert int32(62)
-push float(42.2)
-assert float(42.2)
-push double(52.52)
-assert double(52.52)
-add
+
+push int8(0)
+print
+push int8(67)
+print
+push int8(78)
+print
+push int8(78)
+print
+push int8(89)
+print
+push int8(90)
+print
+push int8(123)
+push float(-345436.3)
+push float(-34543345366.3)
+
+push double(436542435344532547575.56)
+push double(436575.534)
+push double(435.58)
+push double(423423535.58234)
 mul
 dump
-pop
+info
+min
+max
+dump
+info
+
+info
+dump
+
+info
+dump
+info
+
 exit
 ;;
+

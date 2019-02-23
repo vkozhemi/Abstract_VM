@@ -1,26 +1,42 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include "../inc/Parsing.hpp"
-// #include "../inc/IOperand.hpp"
-// #include "../inc/Operand.hpp"
-// #include "../inc/Factory.hpp"
+#include "../inc/Lexer.hpp"
+#include "../inc/Parser.hpp"
+#include "../inc/Interpreter.hpp"
+#include "../inc/IOperand.hpp"
+#include "../inc/Operand.hpp"
+#include "../inc/Factory.hpp"
 
-void	read_from_std_in(void)
-{
-	std::string					buffer;
-	std::vector<std::string>	array;
-
-	while (std::getline(std::cin, buffer) && buffer.compare(";;") != 0) // 
-		array.push_back(buffer);
-
-	Parsing p(array);
+void	initClass(std::vector<std::string>	array, std::vector<std::string> array_time) {
+	Lexer 	lex;
+	lex.validation(array, array_time);
+	Parser 	pars;
+	pars.parser(lex.getToken());
 }
 
-void	read_from_file(std::string filename)
-{
+void	readFromStdIn(void) {
 	std::string					buffer;
 	std::vector<std::string>	array;
+	std::vector<std::string>	array_time;
+	time_t						now;
+	char*						dt;
+	std::string					times;
+
+	while (std::getline(std::cin, buffer) && buffer.compare(";;") != 0) {
+		array.push_back(buffer);
+		now = time(0);
+		dt = ctime(&now);
+		times = dt;
+		array_time.push_back(times);
+	}
+	initClass(array, array_time);
+}
+
+void	readFromFile(std::string filename) {
+	std::string					buffer;
+	std::vector<std::string>	array;
+	std::vector<std::string>	array_time;
+	time_t						now;
+	char*						dt;
+	std::string					times;
 
 	std::ifstream   readFile(filename);
 	if (readFile.fail())
@@ -28,23 +44,23 @@ void	read_from_file(std::string filename)
 		std::cout << "Error opening file" << std::endl;
 		exit(1);
 	}
-	while (std::getline(readFile, buffer))
+	while (std::getline(readFile, buffer)) {
 		array.push_back(buffer);
-
-	Parsing p(array);
+		now = time(0);
+		dt = ctime(&now);
+		times = dt;
+		array_time.push_back(times);
+	}
+	initClass(array, array_time);
 }
 
-int		main(int argc, char **argv)
-{
-	// Lexer *lexer = new Lexer();
-	// Parser *parser = new Parser();
-
+int		main(int argc, char **argv) {
 	if (argc == 1 || argc == 2) {
 		try {
 			if (argc == 1)
-				read_from_std_in();
+				readFromStdIn();
 			else
-				read_from_file(argv[1]);
+				readFromFile(argv[1]);
 		}
 		catch (std::exception &e) {
 			std::cout << e.what() << std::endl;

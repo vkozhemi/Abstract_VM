@@ -2,8 +2,9 @@
 # define IOPERAND_HPP
 
 # include <iostream>
+# include <string>
 
-enum eOperandType {Int8, Int16, Int32, Float, Double};
+# include "Token.hpp"
 
 class	IOperand
 {

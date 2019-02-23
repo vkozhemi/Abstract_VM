@@ -1,9 +1,9 @@
 NAME = avm
 
 CC = clang++
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -std=c++11
 
-SRCS = main.cpp Parsing.cpp Factory.cpp Operand.cpp
+SRCS = main.cpp Lexer.cpp Factory.cpp Operand.cpp Parser.cpp Interpreter.cpp
 OBJ = $(addprefix $(OBJ_DIR), $(SRCS:.cpp=.o))
 
 OBJ_DIR = ./objects/
