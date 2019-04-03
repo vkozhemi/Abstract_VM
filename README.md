@@ -69,4 +69,3 @@ The pure method getPrecision from the interface IOperand allows to get the preci
 
 ## The Stack
 AbstractVM is a stack based virtual machine. Whereas the stack is an actual stack or another container that behaves like a stack is up to you. Whatever the container, it MUST only contain pointers to the abstract type IOperand.
-
